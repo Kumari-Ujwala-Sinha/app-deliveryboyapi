@@ -23,7 +23,7 @@ mongoose.connect(URI, err=>{
 })
 
 app.get('/', (req, res)=>{
-    res.send('Server is ready')
+    res.send('Server is ready and connected to db ')
 })
 
 const PORT =process.env.PORT || 5000
