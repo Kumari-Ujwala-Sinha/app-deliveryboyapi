@@ -14,7 +14,7 @@ router.post('/refresh_token', userCtrl.getAccessToken)
 
 router.post('/forgot', userCtrl.forgotPassword)
 
-router.post('/reset', auth, userCtrl.resetPassword)
+router.post('/reset',otpverify, userCtrl.resetPassword)
 
 router.get('/infor', auth, userCtrl.getUserInfor)
 

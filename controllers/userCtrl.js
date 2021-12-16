@@ -142,13 +142,15 @@ const userCtrl = {
     },
     resetPassword: async (req, res) => {
         try {
+            const {otpverify_id,emailv} = req
             const {password} = req.body
             console.log(password)
             const passwordHash = await bcrypt.hash(password, 12)
 
-            await Users.findOneAndUpdate({_id: req.user.id}, {
+            await Users.findOneAndUpdate({email: emailv}, {
                 password: passwordHash
             })
+            await Otp.findByIdAndDelete(otpverify_id)
 
             res.json({msg: "Password successfully changed!"})
         } catch (err) {

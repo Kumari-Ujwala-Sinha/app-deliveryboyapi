@@ -14,6 +14,7 @@ const otpverify =async (req, res, next) => {
             }else{
                 req.activation_token=data.activation_tokenv
                 req.otpverify_id=data._id
+                req.emailv=data.emailv
                 next()
             }
         }else{
