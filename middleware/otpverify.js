@@ -2,7 +2,7 @@ const Otp = require('../models/otpModel')
 
 
 const otpverify =async (req, res, next) => {
-    const data =await Otp.findOne({code:req.body.otpcode,emailv:req.body.emailv})
+    const data =await Otp.findOne({code:req.body.otpcode})
     try {
        
         if(data){
@@ -16,6 +16,8 @@ const otpverify =async (req, res, next) => {
                 req.otpverify_id=data._id
                 next()
             }
+        }else{
+            return res.status(400).json({msg:"otp expired"})
         }
        
     } catch (err) {
