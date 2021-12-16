@@ -8,9 +8,6 @@ const otpverify =async (req, res, next) => {
         if(data){
             let currentTime=new Date().getTime()
             let diff = data.expireIn-currentTime
-
-            console.log(data.code)
-            console.log(data.activation_tokenv)
             
             if(diff < 0){
                 return res.status(400).json({msg:"otp expired"})

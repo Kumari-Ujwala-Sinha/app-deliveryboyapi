@@ -15,9 +15,9 @@ const {CLIENT_URL} = process.env
 const userCtrl = {
     register: async (req, res) => {
         try {
-            const {name, email, password} = req.body
+            const {name, email, password, phoneNo, profileImg, adharImg, vehicleType } = req.body
             
-            if(!name || !email || !password)
+            if(!name || !email || !password || !phoneNo || !profileImg || !adharImg || !vehicleType)
                 return res.status(400).json({msg: "Please fill in all fields."})
 
             if(!validateEmail(email))
@@ -32,7 +32,7 @@ const userCtrl = {
             const passwordHash = await bcrypt.hash(password, 12)
 
             const newUser = {
-                name, email, password: passwordHash
+                name, email, password: passwordHash, phoneNo, profileImg, adharImg, vehicleType
             }
 
             const activation_token = createActivationToken(newUser)
@@ -45,7 +45,7 @@ const userCtrl = {
                 expireIn: new Date().getTime()+3000*1000
             })
            const otpdata = await otpData.save()
-            console.log(activation_token)
+           
 
             const url = `${otpcode}`
             sendMail(email, url, "Verify your email address")
@@ -62,13 +62,13 @@ const userCtrl = {
             
             const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
 
-            const {name, email, password} = user
+            const {name, email, password, phoneNo, profileImg, adharImg, vehicleType} = user
 
             const check = await Users.findOne({email})
             if(check) return res.status(400).json({msg:"This email already exists."})
 
             const newUser = new Users({
-                name, email, password
+                name, email, password, phoneNo, profileImg, adharImg, vehicleType
             })
 
             await newUser.save()

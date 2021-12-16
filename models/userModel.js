@@ -21,9 +21,21 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0 // 0 = user, 1 = admin
     },
-    avatar: {
-        type: String,
-        default: "https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png"
+    phoneNo:{
+        type:Number,
+        required:[true, "Please enter your Phone Number"]
+    },
+    profileImg:{
+        type:String,
+        required:[true, "Please select profile image"]
+    },
+    adharImg:{
+        type:String,
+        required:[true, "Please select adhaar card image"]
+    },
+    vehicleType:{
+        type:String,
+        required:[true, "Please select Vehicle Type"]
     }
 }, {
     timestamps: true
