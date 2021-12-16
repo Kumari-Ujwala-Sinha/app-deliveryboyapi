@@ -123,7 +123,16 @@ const userCtrl = {
             if(!user) return res.status(400).json({msg: "This email does not exist."})
 
             const access_token = createAccessToken({id: user._id})
-            const url = `${CLIENT_URL}/user/reset/${access_token}`
+            let otpcode = Math.floor(100000 + Math.random() * 900000)
+            let otpData= new Otp({
+                emailv:email,
+                
+                activation_tokenv:access_token,
+                code:otpcode,
+                expireIn: new Date().getTime()+4000*1000
+            })
+           const otpdata = await otpData.save()
+            const url = `${otpcode}`
 
             sendMail(email, url, "Reset your password")
             res.json({msg: "Re-send the password, please check your email."})
