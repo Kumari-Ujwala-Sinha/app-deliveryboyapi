@@ -1,10 +1,20 @@
 const Product = require('../models/productModel')
 
 const productCtrl = {
-    getCategories: async(req, res) =>{
+    getProducts: async(req, res) =>{
         try {
             const products = await Product.find()
             res.json(products)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getProductbyUsers:async(req, res)=>{
+        try {
+            const{deb_id}=req.body
+            const product = await Product.find({deliveryboy:deb_id})
+
+            res.json(product)
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
