@@ -46,7 +46,39 @@ const productCtrl = {
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    }
+       
+    },
+    updatepickedStatus:async(req, res) =>{
+        try {
+            const {pickedStatus} = req.body;
+            await Product.findOneAndUpdate({_id: req.params.id}, {pickedStatus})
+
+            res.json({msg: "Updated a Product"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    updatepickedStatus:async(req, res) =>{
+        try {
+            const {deliveredStatus} = req.body;
+            await Product.findOneAndUpdate({_id: req.params.id}, {deliveredStatus})
+
+            res.json({msg: "Updated a Product"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    updatecustomeraccepted:async(req, res) =>{
+        try {
+            const {customeraccepted} = req.body;
+            await Product.findOneAndUpdate({_id: req.params.id}, {customeraccepted})
+
+            res.json({msg: "Updated a Product"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+
 }
 
 
