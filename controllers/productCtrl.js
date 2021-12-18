@@ -78,6 +78,28 @@ const productCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    deliveryboydelivered:async(req,res)=>{
+        try {
+            
+          const deliveredProducts=  await Product.find({deliveryboy: req.params.id, deliveredStatus:true})
+
+            res.json(deliveredProducts)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    deliveryboytobedelivered:async(req,res)=>{
+        try {
+            
+            const deliveredProducts=  await Product.find({deliveryboy: req.params.id, deliveredStatus:false})
+
+            res.json(deliveredProducts)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    }
+   
+
 
 }
 

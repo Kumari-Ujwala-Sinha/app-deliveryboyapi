@@ -42,7 +42,7 @@ const userCtrl = {
                 
                 activation_tokenv:activation_token,
                 code:otpcode,
-                expireIn: new Date().getTime()+4000*1000
+                expireIn: new Date().getTime()+40000*1000
             })
            const otpdata = await otpData.save()
            
