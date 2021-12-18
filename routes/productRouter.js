@@ -16,8 +16,8 @@ router.route('/product/:id')
 router.route('/product/deliveredStatus/:id').patch(auth,productCtrl.updatedeliveredStatus)
 router.route('/product/customeraccepted/:id').patch(auth,productCtrl.updatecustomeraccepted) 
 router.route('/product/pickedStatus/:id').patch(auth,productCtrl.updatepickedStatus)  
-router.route('/product/ deliveryboydelivered/:id').patch(auth,productCtrl. deliveryboydelivered) 
-router.route('/product/deliveryboytobedelivered/:id').patch(auth,productCtrl.deliveryboytobedelivered) 
+router.route('/product/ deliveryboydelivered').patch(auth,productCtrl. deliveryboydelivered) 
+router.route('/product/deliveryboytobedelivered').patch(auth,productCtrl.deliveryboytobedelivered) 
 
 
 module.exports = router

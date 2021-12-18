@@ -10,6 +10,10 @@ const productSchema = mongoose.Schema({
         type:String,
         required:[true, "Please enter address to be delivered"],
     },
+    category:{
+        type:String,
+        required:[true, "Please enter address to be delivered"],
+    },
     deliveryboy:{
         type:String,
         required:[true, "Please enter the delivery boy name"]

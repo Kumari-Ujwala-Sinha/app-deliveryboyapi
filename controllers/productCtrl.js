@@ -11,8 +11,8 @@ const productCtrl = {
     },
     getProductbyUsers:async(req, res)=>{
         try {
-            const{deb_id}=req.body
-            const product = await Product.find({deliveryboy:deb_id})
+           
+            const product = await Product.find({deliveryboy:req.user.id})
 
             res.json(product)
         } catch (err) {
@@ -22,7 +22,7 @@ const productCtrl = {
     createProduct: async (req, res) =>{
         try {
             const {deliveryitem, addresstodeli, deliveryboy ,deliveryType } = req.body;
-            const newProduct = new Product({deliveryitem, addresstodeli, deliveryboy ,deliveryType })
+            const newProduct = new Product({deliveryitem, addresstodeli, deliveryboy ,category,deliveryType })
             await newProduct.save()
             res.json({msg: "Created a Product"})
         } catch (err) {
@@ -81,7 +81,7 @@ const productCtrl = {
     deliveryboydelivered:async(req,res)=>{
         try {
             
-          const deliveredProducts=  await Product.find({deliveryboy: req.params.id, deliveredStatus:true})
+          const deliveredProducts=  await Product.find({deliveryboy: req.user.id, deliveredStatus:true})
 
             res.json(deliveredProducts)
         } catch (err) {
@@ -91,7 +91,7 @@ const productCtrl = {
     deliveryboytobedelivered:async(req,res)=>{
         try {
             
-            const deliveredProducts=  await Product.find({deliveryboy: req.params.id, deliveredStatus:false})
+            const deliveredProducts=  await Product.find({deliveryboy: req.user.id, deliveredStatus:false})
 
             res.json(deliveredProducts)
         } catch (err) {
