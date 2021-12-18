@@ -88,6 +88,7 @@ const userCtrl = {
 
             const isMatch = await bcrypt.compare(password, user.password)
             if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
+            const access_token = createAccessToken({id: user._id})
 
             const refresh_token = createRefreshToken({id: user._id})
             res.cookie('refreshtoken', refresh_token, {
@@ -96,7 +97,12 @@ const userCtrl = {
                 maxAge: 7*24*60*60*1000 // 7 days
             })
 
-            res.json({msg: "Login success!"})
+            res.json({msg: 'Login Success!',
+            access_token,
+            user: {
+                ...user._doc,
+                password: ''
+            }})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -106,12 +112,22 @@ const userCtrl = {
             const rf_token = req.cookies.refreshtoken
             if(!rf_token) return res.status(400).json({msg: "Please login now!"})
 
-            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-                if(err) return res.status(400).json({msg: "Please login now!"})
+            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async(err, result) => {
+                if(err) return res.status(400).json({msg: "Please login now."})
 
-                const access_token = createAccessToken({id: user.id})
-                res.json({access_token})
+                const user = await Users.findById(result.id).select("-password")
+               
+                if(!user) return res.status(400).json({msg: "This does not exist."})
+
+                const access_token = createAccessToken({id: result.id})
+
+                res.json({
+                    access_token,
+                    user
+                })
             })
+
+           
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
