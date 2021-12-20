@@ -21,8 +21,8 @@ const productCtrl = {
     },
     createProduct: async (req, res) =>{
         try {
-            const {deliveryitem, addresstodeli, deliveryboy ,deliveryType } = req.body;
-            const newProduct = new Product({deliveryitem, addresstodeli, deliveryboy ,category,deliveryType })
+            const {deliveryitem, addresstodeli, deliveryboy ,category, deliveryType,image } = req.body;
+            const newProduct = new Product({deliveryitem, addresstodeli, deliveryboy ,category,deliveryType, image })
             await newProduct.save()
             res.json({msg: "Created a Product"})
         } catch (err) {

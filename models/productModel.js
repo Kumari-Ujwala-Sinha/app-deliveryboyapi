@@ -35,6 +35,10 @@ const productSchema = mongoose.Schema({
      deliveryaccepted:{
         type:String,
         default:"toaccept"
+    },
+    image:{
+        type:String,
+       
     }
 },{
     timestamps:true
