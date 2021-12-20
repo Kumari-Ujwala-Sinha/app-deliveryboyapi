@@ -53,7 +53,7 @@ const productCtrl = {
             const {pickedStatus} = req.body;
             await Product.findOneAndUpdate({_id: req.params.id}, {pickedStatus})
 
-            res.json({msg: "Updated a Product"})
+            res.json({msg: "Updated the picked status of the Product"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -63,7 +63,7 @@ const productCtrl = {
             const {deliveredStatus} = req.body;
             await Product.findOneAndUpdate({_id: req.params.id}, {deliveredStatus})
 
-            res.json({msg: "Updated a Product"})
+            res.json({msg: "Updated delivered status of the Product"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -73,7 +73,7 @@ const productCtrl = {
             const {deliveryaccepted} = req.body;
             await Product.findOneAndUpdate({_id: req.params.id}, {deliveryaccepted})
 
-            res.json({msg: "Updated a Product"})
+            res.json({msg: "Updated delivery acceptence of the Product"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -81,7 +81,7 @@ const productCtrl = {
     deliveryboydelivered:async(req,res)=>{
         try {
             
-          const deliveredProducts=  await Product.find({deliveryboy: req.user.id,deliveryaccepted:"acceptd", deliveredStatus:true, pickedStatus:true})
+          const deliveredProducts=  await Product.find({deliveryboy: req.user.id,deliveryaccepted:"accepted", deliveredStatus:true, pickedStatus:true})
 
             res.json(deliveredProducts)
         } catch (err) {

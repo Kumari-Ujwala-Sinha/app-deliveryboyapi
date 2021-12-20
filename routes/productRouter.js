@@ -13,12 +13,12 @@ router.route('/product/:id')
     .put(auth, authAdmin, productCtrl.updateProduct)
 
 router.route('/product/deliveryboytoaccept').get(auth,productCtrl.deliveryboytoaccept) 
-router.route('/product/customeraccepted/:id').patch(auth,productCtrl.updatedeliveryaccepted)
+router.route('/product/deliveryboytoaccept/:id').patch(auth,productCtrl.updatedeliveryaccepted)
 router.route('/product/deliveryboytobepicked').get(auth,productCtrl.deliveryboytopicked)
 router.route('/product/pickedStatus/:id').patch(auth,productCtrl.updatepickedStatus)  
 router.route('/product/deliveryboytobedelivered').get(auth,productCtrl.deliveryboytobedelivered)  
 router.route('/product/deliveredStatus/:id').patch(auth,productCtrl.updatedeliveredStatus)   
-router.route('/product/ deliveryboydelivered').get(auth,productCtrl. deliveryboydelivered) 
+router.route('/product/deliveryboydelivered').get(auth,productCtrl. deliveryboydelivered) 
 
 
 
