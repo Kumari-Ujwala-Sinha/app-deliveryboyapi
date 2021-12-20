@@ -14,7 +14,7 @@ router.route('/product/:id')
 
 router.route('/product/deliveryboytoaccept').get(auth,productCtrl.deliveryboytoaccept) 
 router.route('/product/customeraccepted/:id').patch(auth,productCtrl.updatedeliveryaccepted)
-router.route('/product/deliveryboytobedelivered').get(auth,productCtrl.deliveryboytopicked)
+router.route('/product/deliveryboytobepicked').get(auth,productCtrl.deliveryboytopicked)
 router.route('/product/pickedStatus/:id').patch(auth,productCtrl.updatepickedStatus)  
 router.route('/product/deliveryboytobedelivered').get(auth,productCtrl.deliveryboytobedelivered)  
 router.route('/product/deliveredStatus/:id').patch(auth,productCtrl.updatedeliveredStatus)   
