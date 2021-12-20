@@ -39,8 +39,8 @@ const productCtrl = {
     },
     updateProduct: async(req, res) =>{
         try {
-            const {deliveryitem, addresstodeli, deliveryboy ,deliveryType} = req.body;
-            await Product.findOneAndUpdate({_id: req.params.id}, {deliveryitem, addresstodeli, deliveryboy ,deliveryType})
+            const {deliveryitem, addresstodeli, deliveryboy ,deliveryType, deliveryaccepted} = req.body;
+            await Product.findOneAndUpdate({_id: req.params.id}, {deliveryaccepted,deliveryitem, addresstodeli, deliveryboy ,deliveryType})
 
             res.json({msg: "Updated a Product"})
         } catch (err) {
@@ -68,10 +68,10 @@ const productCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    updatecustomeraccepted:async(req, res) =>{
+    updatedeliveryaccepted:async(req, res) =>{
         try {
-            const {customeraccepted} = req.body;
-            await Product.findOneAndUpdate({_id: req.params.id}, {customeraccepted})
+            const {deliveryaccepted} = req.body;
+            await Product.findOneAndUpdate({_id: req.params.id}, {deliveryaccepted})
 
             res.json({msg: "Updated a Product"})
         } catch (err) {
@@ -81,7 +81,7 @@ const productCtrl = {
     deliveryboydelivered:async(req,res)=>{
         try {
             
-          const deliveredProducts=  await Product.find({deliveryboy: req.user.id, deliveredStatus:true})
+          const deliveredProducts=  await Product.find({deliveryboy: req.user.id,deliveryaccepted:"acceptd", deliveredStatus:true, pickedStatus:true})
 
             res.json(deliveredProducts)
         } catch (err) {
@@ -91,13 +91,33 @@ const productCtrl = {
     deliveryboytobedelivered:async(req,res)=>{
         try {
             
-            const deliveredProducts=  await Product.find({deliveryboy: req.user.id, deliveredStatus:false})
+            const deliveredProducts=  await Product.find({deliveryboy: req.user.id,deliveryaccepted:"accepted", deliveredStatus:false,pickedStatus:true})
 
             res.json(deliveredProducts)
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
-    }
+    },
+    deliveryboytoaccept:async(req,res)=>{
+        try {
+            
+            const deliveryboytoaccept=  await Product.find({deliveryboy: req.user.id,deliveryaccepted:"toaccept",pickedStatus:false, deliveredStatus:false})
+
+            res.json(deliveryboytoaccept)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    deliveryboytopicked:async(req,res)=>{
+        try {
+            
+            const deliveryboytoaccept=  await Product.find({deliveryboy: req.user.id,deliveryaccepted:"accepted",pickedStatus:false, deliveredStatus:false})
+
+            res.json(deliveryboytoaccept)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
    
 
 

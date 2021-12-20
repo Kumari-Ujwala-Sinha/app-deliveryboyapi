@@ -32,9 +32,9 @@ const productSchema = mongoose.Schema({
         type:Boolean,
         defaul:false
     },
-     customeraccepted:{
-        type:Boolean,
-        default:false
+     deliveryaccepted:{
+        type:String,
+        default:"toaccept"
     }
 },{
     timestamps:true
