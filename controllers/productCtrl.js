@@ -19,10 +19,20 @@ const productCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    getProductdetails:async(req, res)=>{
+        try {
+           
+            const product = await Product.findById(req.params.id)
+
+            res.json(product)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
     createProduct: async (req, res) =>{
         try {
-            const {deliveryitem, addresstodeli, deliveryboy ,category, deliveryType,image } = req.body;
-            const newProduct = new Product({deliveryitem, addresstodeli, deliveryboy ,category,deliveryType, image })
+            const {deliveryitem, addresstodeli, deliveryboy ,category, deliveryType,image,ServiceType,SedndingAddress,Price,Frangible,Weight,CourierType,CourierInfo } = req.body;
+            const newProduct = new Product({deliveryitem, addresstodeli, deliveryboy ,category,deliveryType, image,ServiceType,SedndingAddress,Price,Frangible,Weight,CourierType,CourierInfo })
             await newProduct.save()
             res.json({msg: "Created a Product"})
         } catch (err) {

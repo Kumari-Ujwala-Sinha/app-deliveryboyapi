@@ -6,6 +6,27 @@ const productSchema = mongoose.Schema({
         required:[true, "Please enter delivery item name"],
         
     },
+    ServiceType:{
+        type:String
+    },
+    SedndingAddress:{
+        type:String,
+    },
+    Price:{
+        type:Number,
+    },
+    Frangible:{
+        type:String,
+    },
+    Weight:{
+        type:Number,
+    },
+    CourierType:{
+        type:String,
+    },
+    CourierInfo:{
+        type:String,
+    },
     addresstodeli:{
         type:String,
         required:[true, "Please enter address to be delivered"],
