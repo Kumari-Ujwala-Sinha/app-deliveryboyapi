@@ -74,7 +74,21 @@ const userCtrl = {
             await newUser.save()
             await Otp.findByIdAndDelete(otpverify_id)
 
-            res.json({msg: "Account has been activated!"})
+            const access_token = createAccessToken({id: newUser._id})
+
+            const refresh_token = createRefreshToken({id: newUser._id})
+            res.cookie('refreshtoken', refresh_token, {
+                httpOnly: true,
+                path: '/user/refresh_token',
+                maxAge: 7*24*60*60*1000 // 7 days
+            })
+
+            res.json({msg: 'Login Success!',
+            access_token,
+            user: {
+                ...newUser._doc,
+                password: ''
+            }})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
